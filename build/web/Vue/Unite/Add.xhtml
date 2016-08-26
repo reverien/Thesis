@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+                <h:form>
+                    <h1><h:outputText value="Create/Edit"/></h1>
+                    <h:panelGrid columns="2" border="0">
+                        <p:outputLabel value="NomUnite:" for="nomUnite" />
+                        <p:inputText id="nomUnite" value="#{unite.newUnite.nomUnite}" title="NomUnite" />
+                                                
+                        <p:outputLabel value="Numero" for="num" />
+                        <p:inputText id="num" value="#{unite.newUnite.numero}" title="Numero" />
+                        
+                        <p:outputLabel value="Description:" for="description" />
+                        <p:inputText id="description" value="#{unite.newUnite.description}" title="Description" />
+                        <p:outputLabel value="Classe:" for="classeCode" />
+                        <h:selectOneMenu id="classeCode" value="#{unite.a}" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{classe.selectAllClasse}" var="Classe"  itemValue="#{Classe.id}" itemLabel="#{Classe.id} - #{Classe.nomClasse}"/>
+                        </h:selectOneMenu>                        
+                        <p:outputLabel value="Semestre:" for="semestreCode" />
+                        <h:selectOneMenu id="semestreCode" value="#{unite.b}" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{semestre.selectAllSemestre}" var="Semestre" itemValue="#{Semestre.id}" itemLabel="#{Semestre.id} - #{Semestre.semestre}"/>
+                        </h:selectOneMenu>
+                        
+                        <p:outputLabel />
+                        <h:commandButton value="Ajouter" action="#{unite.createUnite()}">
+                            <f:ajax execute="@form" render="nomUnite,description"/>
+                        </h:commandButton>
+                    </h:panelGrid>
+                </h:form>
+
+            </div>
+        </f:view>
+    </ui:define>
+
+</ui:composition>
+
+

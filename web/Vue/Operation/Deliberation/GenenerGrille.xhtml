@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <div align="center">
+            <f:view>
+                <h:form>
+                    <h:panelGrid columns="6">
+                        <h:outputLabel value="Grile de la classe"  for="cl"/>
+                        <h:selectOneMenu id="cl" value="#{note.newNote.cl.id}" title="Classe" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{classe.selectAllClasse}"
+                                           var="cl"
+                                           itemValue="#{cl.id}"
+                                           itemLabel="#{cl.nomClasse}"/>   
+                        </h:selectOneMenu>
+                        <h:selectOneMenu id="an" value="#{note.newNote.promo.id}"  title="Annee acedemique" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItem itemLabel="select A/A" itemValue="0" noSelectionOption="true"/>
+                            <f:selectItems value="#{promotion.selectAllPromotion}"
+                                           var="annee"
+                                           itemValue="#{annee.id}"
+                                           itemLabel="#{annee.promotion}"/>   
+                        </h:selectOneMenu>
+                        <h:selectOneMenu id="sessCode" value="#{note.newNote.sess.id}" >
+                            <f:selectItem itemLabel="select session" itemValue="0" noSelectionOption="true"/>
+                            <f:selectItems value="#{typeInscription.selectAllTypeInscription}" var="sess" itemValue="#{sess.id}" itemLabel="#{sess.id} - #{sess.type}"/>
+                        </h:selectOneMenu>  
+                        <h:commandButton value="Grille" action="#{note.generationGrille()}">
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandButton>
+                    </h:panelGrid>
+
+
+                    <h:commandLink value="Grille2" action="#{note.grilleDeliberation()}">
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandLink>
+                    
+                </h:form>
+            </f:view>
+        </div>
+    </ui:define>
+
+
+</ui:composition>

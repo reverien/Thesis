@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <head>
+        <ui:define name="metadata">
+            <f:view>
+                <f:metadata>
+                    <f:viewParam name="mat" value="#{etudiant.mat}" required="true"/>
+                    <f:viewAction action="#{etudiant.loadEtudiant()}"/>
+                </f:metadata>
+            </f:view>
+        </ui:define>
+    </head>
+
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:outputLink value="./../View/View_Etudiant.xhtml">
+                        <h:outputText value="Lister" />
+                    </h:outputLink>
+
+                    <h:outputLink value="./../Insert/Insert_Etudiant.xhtml">
+                        <h:outputText value="Ajouter" />
+                    </h:outputLink>
+                </h:panelGrid>
+                
+                <p:separator/>
+                
+                <h:form>
+                    <h:panelGrid border="0" columns="3" cellpadding="5">
+
+                        <h:outputText value="Matricule" />
+                        <p:inputText id="matr" value="#{etudiant.editEtudiant.matriculeEtudiant}"
+                                     required="true" requiredMessage="Nom obligatoire" />
+                        <h:message for="matr" />
+
+                        <h:outputText value="Nom" />
+                        <p:inputText id="lastName" value="#{etudiant.editEtudiant.nomEtudiant}"
+                                     required="true" requiredMessage="Nom obligatoire" />
+                        <h:message for="firstName" />
+
+
+                        <h:outputText value="Prenom" />
+                        <p:inputText id="firstName"
+                                     value="#{etudiant.editEtudiant.prenomEtudiant}" required="true"
+                                     requiredMessage="Prenom obligatoire" />
+                        <h:message for="firstName" />
+
+
+                        <h:outputText value="Nationalite" />
+                        <p:inputText id="nat" value="#{etudiant.editEtudiant.nationalite}"
+                                     required="true" requiredMessage="Nom obligatoire" />
+                        <h:message for="nat" />
+
+                        <p:outputLabel value="Date Inscription" for="dat" />
+                        <p:calendar id="dat" value="#{etudiant.editEtudiant.dateInscription}" pattern="dd-mm-yyyy">
+                            <f:ajax event="blur" render="messaageDate"/>
+                        </p:calendar>                             
+                        <h:message id="messaageDate" for="dat" errorClass="erreur"/>
+
+                        <h:outputText  />
+                        <h:commandButton value="Mettre a jour" action="#{etudiant.modifierEtudiant()}" />
+                        <h:outputText />
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </f:view>
+    </ui:define>
+
+</ui:composition>

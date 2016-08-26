@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+                <h:form>
+                    <h1><h:outputText value="Create/Edit"/></h1>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Cours" for="nomCours" />
+                        <p:inputText id="nomCours" value="#{cours.newCours.nomCours}" title="Intitule du Cours" />
+                        <p:outputLabel value="Numero" for="num" />
+                        <p:inputText id="num" value="#{cours.newCours.numero}" title="Numero du Cours" />
+                        <p:outputLabel value="Credit" for="codeCredit" />
+                        <h:selectOneMenu id="codeCredit" value="#{cours.b}" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{credit.selectAllCredit}" var="cred" itemValue="#{cred.id}" itemLabel="#{cred.id} - #{cred.credit}"/>
+                        </h:selectOneMenu>
+                        
+                        <p:outputLabel value="Numero" for="codeCredit" />
+                        <p:column>
+                            <p:spinner  id="spinner" value="#{cours.newCours.numero}" min="1" max="6" required="true" validatorMessage="ok" requiredMessage="credit entre 2 et 4">
+                                <f:validateLongRange minimum="1" maximum="6"/>
+                            </p:spinner>
+                            <h:outputLabel value="#{cours.newCours.numero}"/>
+                        </p:column>
+                        
+                        
+                        <p:outputLabel value="Unite" for="codeUnite" />
+                        <h:selectOneMenu id="codeUnite" value="#{cours.a}" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{unite.selectAllUnite}" var="u" itemValue="#{u.id}" itemLabel="#{u.id} - #{u.nomUnite}"/>
+                        </h:selectOneMenu>
+                        <p:outputLabel/>
+                        <h:commandButton value="Ajouter" action="#{cours.createCours()}">
+                            <f:ajax execute="@form" render=""/>
+                        </h:commandButton>
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </f:view>
+    </ui:define>
+
+</ui:composition>

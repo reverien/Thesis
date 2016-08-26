@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../Home/Home.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <div align="center">
+            <f:view>
+                <h:form>
+                    <h1><p:outputLabel value="Programmation Horaire" /></h1>
+                    <p:separator/>
+                    <h:panelGrid columns="8" style="">
+                        <h:outputLabel value="Classe"  for="cl"/>                          
+                        <h:selectOneMenu id="cl"  title="Classe" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{classe.classes}"
+                                           var="cl"
+                                           itemValue="#{cl.id}"
+                                           itemLabel="#{cl.nomClasse}"/>   
+                        </h:selectOneMenu>
+                        <h:outputLabel value="UE" for="u" />
+                        <h:selectOneMenu id="u"  title="Unite" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{unite.unites}"
+                                           var="un"
+                                           itemValue="#{un.id}"
+                                           itemLabel="#{un.nomUnite}"/>   
+                        </h:selectOneMenu>
+                        <h:outputLabel value="Date de la Semaine" for="dat" />
+                        <p:calendar id="dat"  pattern="dd-mm-yyyy">
+                            <f:ajax event="blur" render="messaageDate"/>
+                        </p:calendar>
+                        <h:outputLabel value="A/A" for="an" />
+                        <h:selectOneMenu id="an" value="#{attribution.c}"  title="Annee acedemique" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{promotion.promotions}"
+                                           var="annee"
+                                           itemValue="#{annee.id}"
+                                           itemLabel="#{annee.promotion}"/>   
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <p:separator/>
+                    <h:panelGrid columns="2" style="">
+                        <h:outputLabel value="Cours" for="cou" />
+                        <h:selectOneMenu id="cou" value="#{attribution.a}" title="cours" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{cours.cours}"
+                                           var="C"
+                                           itemValue="#{C.id}"
+                                           itemLabel="#{C.codeCours}/#{C.nomCours}"/>   
+                        </h:selectOneMenu>   
+                        <h:outputLabel value="Salle" for="s" />
+                        <h:selectOneMenu id="s"  title="cours" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{salle.salles}"
+                                           var="s"
+                                           itemValue="#{s.id}"
+                                           itemLabel="#{s.codeSalle}"/>   
+                        </h:selectOneMenu>
+                        <h:outputLabel value="Jour" for="j" />
+                        <h:selectOneMenu id="j"  title="Jours" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{salle.salles}"
+                                           var="s"
+                                           itemValue="#{s.id}"
+                                           itemLabel="#{s.salle}"/>   
+                        </h:selectOneMenu>
+                        <h:outputLabel value="Debut-Fin" />
+                        <p:selectOneRadio >
+                            <f:selectItem itemLabel="8h-12h" itemValue="1" />
+                            <f:selectItem itemLabel="14h-18h" itemValue="2" />
+                        </p:selectOneRadio>
+
+                        <h:outputLabel value=""  />
+                        <h:commandButton value="Programmer" >
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandButton> 
+                    </h:panelGrid>
+
+
+                </h:form>
+            </f:view>
+        </div>
+    </ui:define>
+
+</ui:composition>

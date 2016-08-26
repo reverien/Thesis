@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../Home/Home.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="content">
+        <table align="center" width="800" border="1">
+                <th>Unite</th>
+                <th>Cours</th>
+                <th>V.H</th>
+                <th>Enseignat</th>
+                <th>Grade</th>
+                <th>Contrat</th>
+                <c:forEach items="#{attribution.selectAllAttribution}" var="a">
+               
+                    <tr>
+                        <td>#{a.course.codeUnite.nomUnite}</td>
+                        <td>#{a.course.nomCours}</td>
+                        <td>#{a.course.codeCredit.credit}</td>
+                        <td>#{a.professor.nomProfesseur}</td>
+                        <td>#{a.professor.codeGrade.grade}</td>
+                        <td>#{a.professor.contrat_id.contratType}</td>
+                    </tr>
+                </c:forEach>                
+            </table>
+    </ui:define>
+
+</ui:composition>

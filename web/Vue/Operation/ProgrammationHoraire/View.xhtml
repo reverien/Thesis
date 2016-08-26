@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../Home/Home.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <div align="center">
+            <f:view>
+                
+                <h:form>
+                    <h1><h:outputText value="List"/></h1>
+                    <p:dataTable value="#{horaire.selectAllHoraire}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date Debut"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateDebut}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date Fin"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateFin}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Heure Debut"/>
+                            </f:facet>
+                            <h:outputText value="#{item.heureDebut}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Heure Fin"/>
+                            </f:facet>
+                            <h:outputText value="#{item.heureFin}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Cours"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prorammerCoursAttribuer.nomCours}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Salle"/>
+                            </f:facet>
+                            <h:outputText value="#{item.salleEtude.salle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Professeur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.programmerProfesseur.matricule}-#{item.programmerProfesseur.nomProfesseur}-#{item.programmerProfesseur.prenomProfesseur}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </f:view>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

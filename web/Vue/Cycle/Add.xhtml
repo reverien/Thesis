@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+                <h:form>
+                    <h1><h:outputText value="Create/Edit"/></h1>
+                    <h:panelGrid columns="3" border="0">
+                        <p:outputLabel value="Cycle:" for="cycle" />
+                        <p:inputText id="cycle" value="#{cycle.newCycle.nomCycle}" title="Cycle" required="true" requiredMessage="Le nom d'un cycle est obligatoire">
+                            <f:ajax event="blur" render="c"/>
+                        </p:inputText>
+                         <h:message id="c" for="cycle" errorClass="erreur"/>
+                        
+                        <p:outputLabel value="Code" for="code" />
+                        <p:inputText id="code" value="#{cycle.newCycle.codeCycle}" title="code" required="true" requiredMessage="Le code d'un cycle est obligatoire">
+                            <f:ajax render="co" event="blur"/>
+                        </p:inputText>
+                         <h:message id="co" for="code" errorClass="erreur"/>
+                        
+                        <p:outputLabel value="Description:" for="description" />
+                        <p:inputText id="description" value="#{cycle.newCycle.description}" title="Description" />
+                        <h:outputText/>
+                        <h:outputText/>
+                        <h:commandButton value="Ajouter" action="#{cycle.createCycle}">
+                            <f:ajax execute="@form" render="resultat"/>
+                        </h:commandButton>
+                    </h:panelGrid>
+                </h:form>
+
+            </div>
+        </f:view>
+    </ui:define>
+
+</ui:composition>
+

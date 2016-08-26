@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="./../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:param name="list" value="faces-redirect=true"/>
+    <ui:define name="complementTitreEtH1">Credit</ui:define>
+
+    <ui:define name="content" >
+        <div align="center"> 
+            <h:panelGrid>
+                <h:outputLink value="Add.xhtml">
+                    <h:graphicImage width="20" height="20" value="../..//.//Image/ajouter.ICO"/>
+                    <h:outputText value="Nouveau" />
+                </h:outputLink>
+            </h:panelGrid>
+            <p:separator/>
+            <h:form>
+                <p:dataTable value="#{grade.selectAllGrade}" var="g" scrollable="true" scrollHeight="200" style="width: 800">
+                    <p:column width="50">
+                        <f:facet name="header">
+                            <p:outputLabel value="Numero"/>
+                        </f:facet>
+                        <p:outputLabel value="#{g.id}"/>
+                    </p:column>
+
+                    <p:column width="100">
+                        <f:facet name="header">
+                            <p:outputLabel value="Grade"/>
+                        </f:facet>
+                        <p:outputLabel value="#{g.grade}"/>
+                    </p:column>
+
+                    <p:column width="150">
+                        <f:facet name="header">
+                            <p:outputLabel value="Code"/>
+                        </f:facet>
+                        <p:outputLabel value="#{g.code}"/>
+                    </p:column>
+
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Opération"/>
+                        </f:facet>
+                        <h:link  value="Modifier">
+                            <h:graphicImage width="15" height="15" value="../..//.//Image/update.ICO"/>
+                        </h:link>
+                        <p:outputLabel value="    "/>
+                        <h:commandLink  value="Supprimer">
+                            <h:graphicImage width="10" height="10" value="../..//.//Image/delete.png"/>
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandLink>
+                    </p:column>
+                    <p:column style="width:24px">
+                        <p:commandLink title="View Detail" styleClass="ui-icon ui-icon-search">
+
+                        </p:commandLink>
+                    </p:column>
+                    <f:facet name="footer">
+                        La faculte dispose #{departement.tailleList} departements.
+                    </f:facet>
+
+
+                </p:dataTable>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

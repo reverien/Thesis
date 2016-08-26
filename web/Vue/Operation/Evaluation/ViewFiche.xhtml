@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <head>
+        <ui:define name="metadata">
+            <f:view>
+                <f:metadata>                   
+                    <f:viewAction action="#{note.chargerComboFiche()}"/>
+                </f:metadata>
+            </f:view>
+        </ui:define>
+    </head>
+
+    <body>
+
+        <ui:composition template="./../../../Home/Home.xhtml">
+
+            <ui:define name="content">
+                <div align="center">
+                    <f:view>
+                        <h:panelGrid columns="8">
+                            <h:outputLink value="../Attribution/ViewAttribution.xhtml">
+                                <h:graphicImage width="20" height="20" value="../..//.//Image/ajouter.ICO"/>
+                                <h:outputText value="Creer Fiche" />
+                            </h:outputLink>
+                            <h:outputLabel value="Fiche de la classe"  for="cl"/>
+                            <h:selectOneMenu id="cl" value="#{note.newNote.cl.id}" title="Classe" >   
+                                <f:selectItems value="#{note.findClasseByProfesseur}"
+                                               var="cl"
+                                               itemValue="#{cl.id}"
+                                               itemLabel="#{cl.nomClasse}"/>   
+                            </h:selectOneMenu>
+                            <h:selectOneMenu id="an" value="#{note.newNote.promo.id}"  title="Annee acedemique"  >   
+                                <f:selectItem itemLabel="select A/A" itemValue="0" noSelectionOption="true"/>
+                                <f:selectItems value="#{note.findAnneByProfesseur}"
+                                               var="annee"
+                                               itemValue="#{annee.id}"
+                                               itemLabel="#{annee.promotion}"/>   
+                            </h:selectOneMenu>
+                            <h:selectOneMenu id="sessCode" value="#{note.newNote.sess.id}" >
+                                <f:selectItem itemLabel="select session" itemValue="0" noSelectionOption="true"/>
+                                <f:selectItems value="#{note.findSessionByProfesseur}" var="sess" itemValue="#{sess.id}" itemLabel="#{sess.id} - #{sess.type}"/>
+                            </h:selectOneMenu>  
+                            <h:selectOneMenu id="cour" value="#{note.newNote.attrib.course.id}" >
+                                <f:selectItem itemLabel="select session" itemValue="0" noSelectionOption="true"/>
+                                <f:selectItems value="#{note.findCoursByProfesseur}" var="sess" itemValue="#{sess.id}" itemLabel="#{sess.id} - #{sess.nomCours}"/>
+                            </h:selectOneMenu> 
+
+                            <h:commandButton value="Fiche" action="#{note.consulterFiche()}">
+                                <f:ajax execute="@form" render="@form"/>
+                            </h:commandButton>
+                        </h:panelGrid>
+
+
+                        <h:form>
+                            <p:dataTable value="#{note.listeConsulterFicheDePoints}" var="item" scrollable="true" scrollHeight="200">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Etudiant"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.insc.et.matriculeEtudiant}-#{item.insc.et.nomEtudiant} #{item.insc.et.prenomEtudiant}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Cours"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.attrib.course.nomCours}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Note /20"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.note}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Classe"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.cl.nomClasse}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="A/A"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.promo.promotion}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Session"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.sess.type}"/>
+                                </p:column>
+
+
+                            </p:dataTable>
+                            <p:separator/>
+
+
+                        </h:form>
+
+                        <p:commandLink ajax="false" action="#{note.createFicheExcel()}"  value="Export Excel ">
+                            <f:ajax execute="@form" render="resultat"/>
+                        </p:commandLink>
+                        <p:outputLabel value="|"/> <p:commandLink value=" Export PDF"/><br/>
+                    </f:view>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="attributionPU" transaction-type="RESOURCE_LOCAL">
+    <class>ub.edu.bi.Classe</class>
+    <class>ub.edu.bi.Cours</class>
+    <class>ub.edu.bi.Credit</class>
+    <class>ub.edu.bi.Cycle</class>
+    <class>ub.edu.bi.Etudiant</class>
+    <class>ub.edu.bi.Mention</class>
+    <class>ub.edu.bi.Option</class>
+    <class>ub.edu.bi.Promotion</class>
+    <class>ub.edu.bi.Role</class>
+    <class>ub.edu.bi.Salle</class>
+    <class>ub.edu.bi.Semestre</class>
+    <class>ub.edu.bi.Session</class>
+    <class>ub.edu.bi.Unite</class>
+    <class>ub.edu.bi.Departement</class>
+    <class>ub.edu.bi.Attribution</class>
+    <class>ub.edu.bi.Decision</class>
+    <class>ub.edu.bi.Inscription</class>
+    <class>ub.edu.bi.Note</class>
+    <class>ub.edu.bi.TypeInscription</class>
+    <class>ub.edu.bi.ContratType</class>
+    <class>ub.edu.bi.Grade</class>
+    <class>ub.edu.bi.Professeur</class>
+    <class>ub.edu.bi.ProgrammationHoraire</class>
+    <class>ub.edu.bi.Connection</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/these?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+</persistence>

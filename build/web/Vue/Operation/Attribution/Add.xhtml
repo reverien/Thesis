@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <div align="center">
+            <f:view>
+                <h:form>
+                    <h1><p:outputLabel value="Attribution des cours" /></h1>
+                    <p:separator/>
+                    <h:panelGrid columns="8" style="">
+                        <h:outputLabel value="Classe"  for="cl"/>
+                        <h:selectOneMenu id="cl"  title="Classe" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{classe.selectAllClasse}"
+                                           var="cl"
+                                           itemValue="#{cl.id}"
+                                           itemLabel="#{cl.nomClasse}"/>   
+                        </h:selectOneMenu>
+                                                
+                        <h:outputLabel value="UE" for="u" /> 
+                        <h:selectOneMenu id="u"  title="Unite" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{unite.selectAllUnite}"
+                                           var="un"
+                                           itemValue="#{un.id}"
+                                           itemLabel="#{un.nomUnite}"/>   
+                        </h:selectOneMenu>
+                        
+                        <h:outputLabel value="A/A"/>
+                        <h:selectOneMenu id="an" value="#{attribution.newAttribution.annee.id}"  title="Annee acedemique" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{promotion.selectAllPromotion}"
+                                           var="annee"
+                                           itemValue="#{annee.id}"
+                                           itemLabel="#{annee.promotion}"/>   
+                        </h:selectOneMenu>
+                        
+                    </h:panelGrid>
+
+                    <p:separator/>
+
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Professeur" for="prof" />
+                        <h:selectOneMenu id="prof" value="#{attribution.newAttribution.professor.id}" title="Professeur" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{professeur.selectAllProfesseur}"
+                                           var="p"
+                                           itemValue="#{p.id}"
+                                           itemLabel="#{p.matricule}/#{p.nomProfesseur}-#{p.prenomProfesseur}"/>   
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="Cours" for="cou" />
+                        <h:selectOneMenu id="cou" value="#{attribution.newAttribution.course.id}" title="cours" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{cours.selectAllCours}"
+                                           var="C"
+                                           itemValue="#{C.id}"
+                                           itemLabel="#{C.codeCours}/#{C.nomCours}"/>   
+                        </h:selectOneMenu>
+
+                        <h:commandButton value="Attribuer" action="#{attribution.createListAttribution()}">
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandButton> 
+                        <h:commandButton value="Ajouter" action="#{attribution.createAttribution()}">
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandButton>                            
+                    </h:panelGrid>
+
+                </h:form>
+            </f:view>
+
+            <p:separator/>
+           
+            <f:view>
+                <h:form>
+                    <h1><h:outputText value="List"/></h1>
+                    <p:dataTable value="#{attribution.listAttribution}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Course"/>
+                            </f:facet>
+                            <h:outputText value="#{item.course.nomCours}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Professor"/>
+                            </f:facet>
+                            <h:outputText value="#{item.professor.nomProfesseur}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Annee"/>
+                            </f:facet>
+                            <h:outputText value="#{item.annee.promotion}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </f:view>
+
+            
+        </div>
+    </ui:define>
+
+</ui:composition>

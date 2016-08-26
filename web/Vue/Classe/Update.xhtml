@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Home/Home.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    
+     <ui:define name="metadata">
+        <f:view>
+            <f:metadata>
+                <f:viewAction action="#{connection.verifieSession()}"/>
+            </f:metadata>
+        </f:view>
+    </ui:define>
+
+    <ui:define name="content">
+        <div align="center" >
+            <f:view>
+
+
+                <h:form>
+                    <h1><h:outputText value="Create/Edit"/></h1>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="NomClasse:" for="nomClasse" />
+                        <p:inputText id="nomClasse" value="#{classe.editClasse.nomClasse}" disabled="true" title="NomClasse" />
+                        <p:outputLabel value="Niveau:" for="niveau" />
+                        <p:inputText id="niveau" value="#{classe.editClasse.niveau}" title="Niveau" />
+                        <p:outputLabel value="CodeCycle:" for="codeCycle" />
+                        <h:selectOneMenu id="codeCycle" value="#{classe.editClasse.codeCycle.id}" >
+                            <f:selectItems value="#{cycle.cycles}" var="c" itemValue="#{c.id}" itemLabel="#{c.nomCycle}"/>
+                        </h:selectOneMenu>
+                        <p:outputLabel value="CodeOption:" for="codeOption" />
+                        <h:selectOneMenu id="codeOption" value="#{classe.editClasse.codeOption.id}" >
+                            <f:selectItems value="#{option.selectAllOption}" var="op" itemLabel="#{op.nomOption}" itemValue="#{op.id}"/>
+                        </h:selectOneMenu>
+                       
+                           <h:outputText />
+                        <h:commandButton value="Mettre a jour" action="#{classe.modifierClasse()}" />
+                     
+                        
+                    </h:panelGrid>
+                </h:form>
+            </f:view>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+   <ui:define name="content">
+        <div align="center">
+            <f:view>
+
+
+                <h:form>
+                    <h1><h:outputText value="List"/></h1>
+                    <p:dataTable value="#{attribution.selectByProfesseur}" var="item">
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Code cours"/>
+                            </f:facet>
+                            <h:outputText value="#{item.course.codeCours}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Intitulé du cours"/>
+                            </f:facet>
+                            <h:outputText value="#{item.course.nomCours}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Classe"/>
+                            </f:facet>
+                            <h:outputText value="#{item.course.codeUnite.classeCode.nomClasse}"/>
+                        </p:column>
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Semestre"/>
+                            </f:facet>
+                             <h:outputText value="#{item.course.codeUnite.semestreCode.semestre}"/>
+                        </p:column>
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="A-A"/>
+                            </f:facet>
+                            <h:outputText value="#{item.annee.promotion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Professeur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.professor.nomProfesseur}"/>
+                        </p:column>
+                       
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Etat session 1"/>
+                            </f:facet>
+                            <h:link outcome="/Vue/Operation/Evaluation/Add" value="#{note.etatCours}" >
+                                <h:graphicImage width="10" height="10" value="../..//.//Image/"/>
+                                <f:param name="attributionId" value="#{item.id}"/>
+                                 <f:param name="session" value="1"/>
+                            </h:link>
+                        </p:column>
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Etat session 2"/>
+                            </f:facet>
+                             <h:link outcome="/Vue/Operation/Evaluation/Add" value="Non évalué" >
+                                <h:graphicImage width="10" height="10" value="../..//.//Image/"/>
+                                <f:param name="attributionId" value="#{item.id}"/>
+                                 <f:param name="session" value="2"/>
+                            </h:link>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </f:view>
+
+        </div>
+    </ui:define>
+
+
+</ui:composition>

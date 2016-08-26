@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Home/Home.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+                 <h:panelGrid>
+                <h:outputLink value="Add.xhtml">
+                        <h:graphicImage width="20" height="20" value="../..//.//Image/ajouter.ICO"/>
+                        <h:outputText value="Nouveau" />
+                    </h:outputLink>
+            </h:panelGrid>
+            <p:separator/>
+                <h:form >
+                    <p:dataTable value="#{contrat.selectAllContrat}" var="item" style="width: 1000" scrollable="true" scrollHeight="200">
+                        <p:column width="10">
+                            <f:facet name="header">
+                                <h:outputText value="Numero"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column width="50">
+                            <f:facet name="header">
+                                <h:outputText value="Type de contrat"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contratType}"/>
+                        </p:column>
+                        <p:column width="150">
+                            <f:facet name="header">
+                                <h:outputText value="Description du contrat"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descriptionContrat}"/>
+                        </p:column>
+                        
+                        <p:column width="100">
+                            <f:facet name="header">
+                                <h:outputText value="Opération"/>
+                            </f:facet>   
+                            
+                            <h:link outcome="#{contrat.editContrat(item.id)}"  value="Modifier">
+                            <h:graphicImage width="15" height="15" value="../..//.//Image/update.ICO"/>
+                            </h:link>
+                            <p:outputLabel value=" "/>
+                           
+                            <h:commandLink value="Supprimer" >
+                                <h:graphicImage width="10" height="10" value="../..//.//Image/delete.png"/>
+                                <f:ajax execute="@form" render="@form"/>
+                            </h:commandLink>
+                        </p:column>
+                        <p:column style="width:24px">
+                            <p:commandLink title="View Detail" styleClass="ui-icon ui-icon-search">
+                               
+                            </p:commandLink>
+                        </p:column>
+                        <f:facet name="footer">
+                        La faculte dispose departements.
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </f:view>
+
+    </ui:define>
+
+</ui:composition>

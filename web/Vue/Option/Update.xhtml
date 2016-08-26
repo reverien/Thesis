@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Home/Home.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    
+     <head>
+        <ui:define name="metadata">
+            <f:view>
+                <f:metadata>
+                    <f:viewParam name="idOption" value="#{option.postIdOption}" required="true"/>
+                    <f:viewAction action="#{option.loadOption()}"/>
+                </f:metadata>
+            </f:view>
+        </ui:define>
+    </head>
+
+    <ui:define name="content">
+        <div align="center">
+            <f:view>
+
+
+                <h:form>
+                    <h1><h:outputText value="Create/Edit"/></h1>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="NomOption:" for="nomOption" />
+                        <p:inputText id="nomOption" value="#{option.editOption.nomOption}" title="NomOption" />
+                        <p:outputLabel value="Code:" for="code" />
+                        <p:inputText id="code" value="#{option.editOption.code}" title="Code" />
+                        <p:outputLabel value="Id:" for="id" />
+                        <p:inputText id="id" value="#{option.editOption.id}" title="Id" />
+                        <p:outputLabel value="Desription:" for="desription" />
+                        <p:inputText id="desription" value="#{option.editOption.desription}" title="Desription" />
+                        <p:outputLabel value="CodeDepartement:" for="codeDepartement" />
+                        <h:selectOneMenu id="codeDepartement" value="#{option.editOption.codeDepartement.id}" >
+                            <f:selectItems value="#{departement.departements}" var="d" itemValue="#{d.id}" itemLabel="#{d.departement}"/>
+                        </h:selectOneMenu>
+                        
+                        <h:outputText  />
+                        <h:commandButton value="Mettre a jour" action="#{option.modifierOption()}" />
+                        <h:outputText />
+                    </h:panelGrid>
+                </h:form>
+            </f:view>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

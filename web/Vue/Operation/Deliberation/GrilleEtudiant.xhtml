@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <div align="center">
+            <f:view>
+                <h:form >                    
+                    <h:panelGrid columns="8">                        
+                        <h:outputLabel value="Grile de la classe"  for="cl"/>
+                        <h:selectOneMenu id="cl" value="#{note.newNote.cl.id}" title="Classe" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItems value="#{classe.selectAllClasse}"
+                                           var="cl"
+                                           itemValue="#{cl.id}"
+                                           itemLabel="#{cl.nomClasse}"/>   
+                        </h:selectOneMenu>
+                        <h:selectOneMenu id="an" value="#{note.newNote.promo.id}"  title="Annee acedemique" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItem itemLabel="select A/A" itemValue="0" noSelectionOption="true"/>
+                            <f:selectItems value="#{promotion.selectAllPromotion}"
+                                           var="annee"
+                                           itemValue="#{annee.id}"
+                                           itemLabel="#{annee.promotion}"/>   
+                        </h:selectOneMenu>
+                        <h:selectOneMenu id="sessCode" value="#{note.newNote.sess.id}" >
+                            <f:selectItem itemLabel="select session" itemValue="0" noSelectionOption="true"/>
+                            <f:selectItems value="#{typeInscription.selectAllTypeInscription}" var="sess" itemValue="#{sess.id}" itemLabel="#{sess.id} - #{sess.type}"/>
+                        </h:selectOneMenu>   
+                        <h:commandButton value="Grille" action="#{note.listeEtudiantInscrit()}">
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandButton>
+                    </h:panelGrid>
+
+
+
+
+                    <h:form>
+
+                        <h1> <h:outputText value="List"/> </h1>
+                        <p:dataTable value="#{note.listeInscriptionClasseAnneeSession}" var="item" scrollable="true"  scrollWidth="1000" scrollHeight="220">
+                            <p:column width="200">
+                                <f:facet name="header">
+                                    <h:outputText value="Etudiant"/>
+                                </f:facet>
+                                <h:outputText value="#{item.et.nomEtudiant}-#{item.et.prenomEtudiant}"/>
+                            </p:column>
+                            <p:column width="150">
+                                <f:facet name="header">
+                                    <h:outputText value="Classe"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cl.nomClasse}"/>
+                            </p:column>
+                            <p:column width="80">
+                                <f:facet name="header">
+                                    <h:outputText value="Session"/>
+                                </f:facet>
+                                <h:outputText value="#{item.typeInscr.type}"/>
+                            </p:column>
+                            <p:column width="80">
+                                <f:facet name="header">
+                                    <h:outputText value="A/A"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prom.promotion}"/>
+                            </p:column>
+                            <p:column width="100">
+                                <f:facet name="header">
+                                    <h:outputText value="Detail"/>
+                                </f:facet>
+
+                                <p:commandLink value="Datail" action="#{note.grilleDeliberation()}" >
+                                    <f:ajax execute="@form" render="@form"/>
+                                </p:commandLink> 
+                            </p:column>
+
+                            <p:column>
+                                <p:commandLink update="msgs"  value="Ajouter" actionListener="#{note.grilleDeliberation()}" >
+                                    <f:ajax execute="@form" render="resultat"/>
+                                </p:commandLink>
+                                <p:growl id="msgs" showDetail="true" sticky="true" />
+                                <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+
+
+
+                                    <h:panelGrid columns="3">
+                                        <h:form>
+                                            <p:dataTable value="#{note.listeAttributionClasseAnneeSession}" var="item" scrollable="true" scrollWidth="800" scrollHeight="220" >
+
+                                                <p:column>
+                                                    <h:outputText value="#{item.course.nomCours}"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <h:outputText value="#{note.noteRecuDansUnCours}"/>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:form>
+                                        <h:form>
+                                            <h:panelGrid columns="2">
+                                                <h:outputText value="Totaux: "/><h:outputText value="?"/>
+                                                <h:outputText value="Points annuel sur 20: "/><h:outputText value="#{note.moyenneAnnuelle}"/>
+                                                <h:outputText value="Pourcentage: "/><h:outputText value="#{note.pourcentageAnnuel}"/>
+                                                <h:outputText value="UE non valide: "/><h:outputText value="#{note.nombreDesUEMoyenneEstSousDix}"/>
+                                                <h:outputText value="semestre 1: "/><h:outputText value="#{note.testValidationSemestre}"/>
+                                                <h:outputText value="semestre 2: "/><h:outputText value="#{note.testValidationSemestre}"/>
+                                                <h:outputText value="Mention: "/><h:outputText value="#{note.mention}"/>
+                                                <h:outputText value="Decision: "/><h:outputText value="#{note.decision}"/>
+                                            </h:panelGrid>
+                                        </h:form>
+
+                                    </h:panelGrid>
+                                </p:dialog>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                In total there are #{note.nombreEtudiantInscritDansUneClasse} subscribe.
+
+                            </f:facet>
+                        </p:dataTable>
+                    </h:form>
+                </h:form>
+                <p:commandLink ajax="false" value="Grille Excel" action ="#{note.exportGrilleExcel()}">
+                    <f:ajax execute="@form" render="resultat"/>
+                </p:commandLink>
+            </f:view>
+
+        </div>
+    </ui:define>
+
+
+</ui:composition>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Home/Home.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    
+     <ui:define name="metadata">
+        <f:view>
+            <f:metadata>
+                <f:viewAction action="#{connection.verifieSession()}"/>
+            </f:metadata>
+        </f:view>
+    </ui:define>
+
+    <ui:define name="content">
+        <div align="center">
+            <f:view>
+                <h:panelGrid>
+                    <h:outputLink value="Add.xhtml">
+                        <h:graphicImage width="20" height="20" value="../..//.//Image/ajouter.ICO"/>
+                        <h:outputText value="Nouveau" />
+                    </h:outputLink>
+                </h:panelGrid>
+                <p:separator/>
+                <h:form>
+
+                    <p:dataTable value="#{classe.selectAllClasse}" var="item" style="width: 1000" scrollable="true" scrollHeight="200">
+                        <p:column width="30">
+                            <f:facet name="header">
+                                <h:outputText value="Num"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column width="200">
+                            <f:facet name="header">
+                                <h:outputText value="Classe"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomClasse}"/>
+                        </p:column>
+                        <p:column width="100">
+                            <f:facet name="header">
+                                <h:outputText value="Cycle"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codeCycle.nomCycle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Option"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codeOption.nomOption}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Departement"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codeOption.codeDepartement.codeDepart}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Opération"/>
+                            </f:facet>
+                            <h:link outcome="#{classe.editClasse(item.id)}" value="Modifier">
+                                <h:graphicImage width="15" height="15" value="../..//.//Image/update.ICO"/>
+                            </h:link>
+                            <p:outputLabel value="    "/>
+                            <h:commandLink action="#{classe.deleteClasse(item.id)}" value="Supprimer">
+                                <h:graphicImage width="10" height="10" value="../..//.//Image/delete.png"/>
+                                <f:ajax execute="@form" render="@form"/>
+                            </h:commandLink>
+                        </p:column>
+
+                        <p:column style="width:24px">
+                            <p:commandLink title="View Detail" styleClass="ui-icon ui-icon-search">
+
+                            </p:commandLink>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            In total there are #{classe.tailleListClasse} classes.
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+            </f:view>
+        </div>
+    </ui:define>
+
+</ui:composition>
+

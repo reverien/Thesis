@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Faculté des Sciences de l'Ingénieur</title>
+    </h:head>
+
+
+
+
+    <h:body>
+        <h:form>
+            <div><ui:insert name="metadata"/></div>
+            <div id="top" style="">           
+                <ui:insert name="top"/>
+            </div>
+
+            <div id="menu" style="">           
+                <ui:insert name="menu">                    
+                    <p:menubar>
+
+                        <p:menuitem value="Home" outcome="/Home/index.xhtml" />
+
+                        <p:submenu  label="Edition">
+                            <p:menuitem value="Classe" outcome="/Vue/Classe/Add.xhtml" /> 
+                            <p:menuitem value="Contrat" outcome="/Vue/Contrat/Add.xhtml" />
+                            <p:menuitem  value="Cours" outcome="/Vue/Cours/Add.xhtml" /> 
+                            <p:menuitem value="Credit" outcome="/Vue/Credit/Add.xhtml" />
+                            <p:menuitem value="Cycle" outcome="/Vue/Cycle/Add.xhtml" /> 
+                            <p:menuitem value="Decision" outcome="/Vue/Decision/Add.xhtml" />
+                            <p:menuitem value="Departement" outcome="/Vue/Departement/Add.xhtml" /> 
+                            <p:menuitem value="Etudiant" outcome="/Vue/Etudiant/Add.xhtml" />
+                            <p:menuitem value="Grade" outcome="/Vue/Grade/Add.xhtml" /> 
+                            <p:menuitem value="Mention" outcome="/Vue/Mention/Add.xhtml" />
+                            <p:menuitem value="Option" outcome="/Vue/Option/Add.xhtml" /> 
+                            <p:menuitem value="Professeur" outcome="/Vue/Professeur/Add.xhtml" />
+                            <p:menuitem value="Promotion" outcome="/Vue/Promotion/Add.xhtml" /> 
+                            <p:menuitem value="Role" outcome="/Vue/Role/Add.xhtml" />
+                            <p:menuitem value="Semestre" outcome="/Vue/Semestre/Add.xhtml" /> 
+                            <p:menuitem value="Session" outcome="/Vue/Session/Add.xhtml" /> 
+                            <p:menuitem value="Type inscription" outcome="/Vue/TypeInscription/Add.xhtml" />
+                            <p:menuitem value="Unite" outcome="/Vue/Unite/Add.xhtml" /> 
+                        </p:submenu>
+                        <p:submenu label="Affichage">
+                            <p:menuitem value="select cours by professeur" outcome="/Vue/Vieuw.xhtml" /> 
+                            <p:menuitem value="Classe" outcome="/Vue/Classe/View.xhtml" /> 
+                            <p:menuitem value="Contrat" outcome="/Vue/Contrat/View.xhtml" />
+                            <p:menuitem value="Cours" outcome="/Vue/Cours/View.xhtml" /> 
+                            <p:menuitem value="Credit" outcome="/Vue/Credit/View.xhtml" />
+                            <p:menuitem value="Cycle" outcome="/Vue/Cycle/View.xhtml" /> 
+                            <p:menuitem value="Decision" outcome="/Vue/Decision/View.xhtml" />
+                            <p:menuitem value="Departement" outcome="/Vue/Departement/View.xhtml" /> 
+                            <p:menuitem value="Etudiant" outcome="/Vue/Etudiant/View.xhtml" />
+                            <p:menuitem value="Grade" outcome="/Vue/Grade/View.xhtml" /> 
+                            <p:menuitem value="Mention" outcome="/Vue/Mention/View.xhtml" />
+                            <p:menuitem value="Option" outcome="/Vue/Option/View.xhtml" /> 
+                            <p:menuitem value="Professeur" outcome="/Vue/Professeur/View.xhtml" />
+                            <p:menuitem value="Promotion" outcome="/Vue/Promotion/View.xhtml" /> 
+                            <p:menuitem value="Role" outcome="/Vue/Role/View.xhtml" />
+                            <p:menuitem value="Semestre" outcome="/Vue/Semestre/View.xhtml" /> 
+                            <p:menuitem value="Session" outcome="/Vue/Session/View.xhtml" /> 
+                            <p:menuitem value="Type inscription" outcome="/Vue/TypeInscription/View.xhtml" />
+                            <p:menuitem value="Unite" outcome="/Vue/Unite/View.xhtml" /> 
+                        </p:submenu>
+                        <p:submenu label="Operation">
+                            <p:menuitem disabled="" value="Generer Grille" outcome="/Vue/Operation/Deliberation/GenenerGrille.xhtml"/>
+                            <p:menuitem value="Attribution des cours" outcome="/Vue/Operation/Attribution/View.xhtml" />                           
+                            <p:menuitem value="Inscription des etudiants" outcome="/Vue/Operation/Inscription/View.xhtml" />
+                            <p:menuitem disabled="#{connection.fiche}" value="Saisie des points" outcome="/Vue/Operation/Attribution/ViewAttribution.xhtml"/>
+                            <p:menuitem disabled="#{connection.fiche}" value="Fiche de points" outcome="/Vue/Operation/Evaluation/ViewFiche.xhtml"/> 
+                            <p:menuitem disabled="" value="Deleliberation" outcome="/Vue/Operation/Deliberation/test.xhtml"/>
+                            <p:menuitem disabled="" value="Grille" outcome="/Vue/Operation/Deliberation/Grille.xhtml"/>
+                            <p:menuitem disabled="" value="Commande Bulletin" outcome="/Home/test.xhtml" />
+                        </p:submenu>
+                        <p:submenu label="Operation">
+                            <p:menuitem value="Attribution des cours" outcome="/Vue/Operation/Attribution/View.xhtml" />
+                            <p:menuitem value="Programmation Cours" outcome="/Vue/Operation/ProgrammationHoraire/Add.xhtml"/>
+                            <p:menuitem value="Rapport Hebdomadaire" outcome="/Home/test.xhtml" />
+                            <p:menuitem value="Avancement cours" outcome="/Home/test.xhtml" />                           
+                        </p:submenu>
+                        <p:menuitem value="Audit" outcome="/Home/test.xhtml" />
+                        <p:menuitem value="Quitter" outcome="#{connection.deconnection()}" />
+                        <p:menuitem value="  "/>
+                        <p:menuitem style="color: green;" value="  Vous etes connecte en tant que:  #{connection.login}"/>
+
+                    </p:menubar>
+                </ui:insert>
+            </div>
+
+            <div>
+
+                <div>
+
+                    <div id="content" class="right_content">
+                        <ui:insert name="content"><ui:include src="content.xhtml"/></ui:insert>
+                    </div>
+                </div>
+            </div>
+            <div id="bottom">
+                <ui:insert name="bottom">
+                </ui:insert>
+            </div>
+        </h:form>
+    </h:body>
+
+</html>

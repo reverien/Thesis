@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+                <h:form>
+                    <h:panelGrid columns="3" style="">
+                        <h:outputLink value="View.xhtml">
+                            <h:outputText value="Affichage tous" />
+                        </h:outputLink>
+                    </h:panelGrid>
+                    <h:panelGrid columns="3">
+                        <p:outputLabel value="Nom Etudiant:" for="nomEtudiant" />
+                        <p:inputText id="nomEtudiant" value="#{etudiant.newEtudiant.nomEtudiant}" title="NomEtudiant">
+                            <f:ajax event="blur" render="messageNom"/>
+                        </p:inputText>
+                        <h:message id="messageNom" for="nomEtudiant" errorClass="erreur"/>
+
+                        <p:outputLabel value="Prenom Etudiant:" for="prenomEtudiant" />
+                        <p:inputText id="prenomEtudiant" value="#{etudiant.newEtudiant.prenomEtudiant}" title="PrenomEtudiant">
+                            <f:ajax event="blur" render="messagePrenom"/>
+                        </p:inputText>
+                        <h:message id="messagePrenom" for="prenomEtudiant" errorClass="erreur"/>
+
+                        <p:outputLabel value="Nationalite" for="nat" />
+                        <p:inputText id="nat" value="#{etudiant.newEtudiant.nationalite}" title="Nationalite">                             
+                            <f:ajax event="blur" render="messageNat"/>
+                        </p:inputText>
+                        <h:message id="messageNat" for="nat" errorClass="erreur"/>
+
+                        <p:outputLabel value="Date Inscription" for="dat" />
+                        <p:calendar id="dat" value="#{etudiant.newEtudiant.dateInscription}" pattern="dd-mm-yyyy">
+                            <f:ajax event="blur" render="messaageDate"/>
+                        </p:calendar>                             
+                        <h:message id="messaageDate" for="dat" errorClass="erreur"/>
+
+                        <p:outputLabel value="MatriculeEtudiant:" for="matriculeEtudiant" />
+                        <p:inputText id="matriculeEtudiant" value="#{etudiant.newEtudiant.matriculeEtudiant}" title="MatriculeEtudiant">
+                            <f:ajax event="blur" render="messageMatricule"/>
+                        </p:inputText>
+                        <h:message id="messageMatricule"  for="matriculeEtudiant" errorClass="erreur"/>
+                        
+                        <h:commandButton value="Ajouter" action="#{etudiant.creationEtudiant()}">
+                            <f:ajax execute="@form" render=":etudiants"/>
+                        </h:commandButton>  
+
+                        <h:commandButton value="Lister" action="#{etudiant.createListeTemporelleEtudiant()}">
+                            <f:ajax execute="@form"  render=":etudiants"/>
+                        </h:commandButton>  
+                        
+                        <h:outputLabel/>
+
+                    </h:panelGrid>
+                    <h:panelGrid>
+                        <h:messages globalOnly="true" infoClass="info"/>
+                    </h:panelGrid>
+             
+
+                <p:separator/>
+                                
+                    <p:dataTable  id="etudiants" style="width: 900;" value="#{etudiant.listeEtudiant}" var="item"  scrollable="true" scrollHeight="100">                     
+                       
+                        <p:column width="120">
+                            <f:facet name="header">
+                                <h:outputText value="Nom"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomEtudiant}"/>
+                        </p:column>
+                        <p:column width="120">
+                            <f:facet name="header">
+                                <h:outputText value="Prenom"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prenomEtudiant}"/>
+                        </p:column> 
+
+                        <p:column width="80">
+                            <f:facet name="header">
+                                <h:outputText value="Nationalite"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nationalite}"/>
+                        </p:column> 
+
+                        <p:column width="80">
+                            <f:facet name="header">
+                                <h:outputText value="Inscription"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateInscription}">
+                                <f:convertDateTime pattern="dd-mm-yyyy"/>
+                            </h:outputText>                            
+                        </p:column> 
+
+                       
+
+                        <f:facet name="footer">
+                            In total there are  students.
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </f:view>
+    </ui:define>
+
+</ui:composition>

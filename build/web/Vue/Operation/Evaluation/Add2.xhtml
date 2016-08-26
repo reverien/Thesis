@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../Home/Home.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <div align="center">
+            <f:view>
+
+                <h:form>
+                    <h1><p:outputLabel value="Creation des fiches des points" /></h1>
+                    <p:separator/>
+                    <p:panel>
+                        <h:panelGrid columns="10" style="">
+
+                            <h:outputLabel value="Classe"  for="cl"/>
+                            <h:selectOneMenu id="cl" value="" title="Classe" required="true" requiredMessage="The  field is required." >   
+                                <f:selectItems value="#{classe.classes}"
+                                               var="cl"
+                                               itemValue="#{cl.id}"
+                                               itemLabel="#{cl.nomClasse}"/>   
+                            </h:selectOneMenu>
+
+                            <h:outputLabel value="Cours" for="icigwa" />
+                            <h:selectOneMenu disabled="false" id="icigwa" value="#{note.newNote.attrib.id}" title="cours" required="true" requiredMessage="The  field is required." >  
+                                <f:selectItem itemLabel="select cours" itemValue="0" noSelectionOption="true"/>
+                                <f:selectItems value="#{cours.cours}"
+                                               var="C"
+                                               itemValue="#{C.id}"
+                                               itemLabel="#{C.nomCours}"/>   
+                            </h:selectOneMenu>
+
+                            <h:outputLabel value="A/A"/>
+                            <h:selectOneMenu id="an" value="#{attribution.newAttribution.annee.id}"  title="Annee acedemique" required="true" requiredMessage="The  field is required." >   
+                                <f:selectItems value="#{promotion.promotions}"
+                                               var="annee"
+                                               itemValue="#{annee.id}"
+                                               itemLabel="#{annee.promotion}"/>   
+                            </h:selectOneMenu>
+
+                            <h:outputLabel value="Type de session" for="ses" />
+                            <h:selectOneMenu id="ses" value="#{inscription.newInscription.typeInscr.id}" title="etu" required="true" requiredMessage="The  field is required." >   
+                                <f:selectItems value="#{typeInscription.types}"
+                                               var="S"
+                                               itemValue="#{S.id}"
+                                               itemLabel="#{S.codetype}"/>   
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                    </p:panel>
+
+                    <p:separator/>
+
+                    <h:panelGrid columns="2" style="">                         
+                        <h:outputLabel value="Etudiant" for="etu" />
+                        <h:selectOneMenu id="etu" value="#{note.newNote.insc.id}" title="etudiant" required="true" requiredMessage="The  field is required." >   
+                            <f:selectItem itemLabel="select etudiant" itemValue="0" noSelectionOption="true"/>
+                            <f:selectItems value="#{etudiant.etudiants}"
+                                           var="Etudiant"
+                                           itemValue="#{Etudiant.id}"
+                                           itemLabel="#{Etudiant.matriculeEtudiant}-#{Etudiant.nomEtudiant}  #{Etudiant.prenomEtudiant}"/>   
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="Note Obtenue" for="n" />
+                        <h:inputText value="#{note.newNote.note}" id="n"/>
+
+
+                        <h:outputLabel value=""  />
+                        <h:commandButton value="Programmer" action="#{note.createNote()}">
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandButton> 
+                    </h:panelGrid>
+
+
+                </h:form>
+            </f:view>
+        </div>
+    </ui:define>
+
+</ui:composition>

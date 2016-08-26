@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../Home/Home.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+
+        <div align="center"><br/>
+            <p:panel  style="width: 1020; " >
+                <div align="left">
+                    <h3><p:outputLabel value="Université du Burundi"/> <br/>
+                        <p:outputLabel value="Faculté des Sciences de l'Ingénieur"/><br/>
+                        <p:outputLabel value="Departement de #{attribution.newAttribution.course.codeUnite.classeCode.codeOption.codeDepartement.departement}"/><br/>
+                        <p:outputLabel value="Option de: #{attribution.newAttribution.course.codeUnite.classeCode.codeOption.nomOption}"/><br/>                       
+                        <p:outputLabel value="Classe de: #{attribution.newAttribution.course.codeUnite.classeCode.nomClasse}"/><br/>
+                        <p:outputLabel value="Année academique: #{attribution.newAttribution.annee.promotion}"/><br/>
+                        <p:outputLabel value=" #{attribution.newAttribution.course.codeUnite.semestreCode.semestre}"/>
+                    </h3>
+                </div>
+                <h:form>
+                    <p:dataTable value="#{attribution.selectByCoursAndPromotion}" var="item" scrollable="true" scrollWidth="1000" scrollHeight="260">
+                         <p:column width="200">
+                            <f:facet name="header">
+                                <h:outputText value="Code cours"/>
+                            </f:facet>
+                             <h:outputText value="#{item.course.codeCours}"/>
+                        </p:column>
+                        <p:column width="200">
+                            <f:facet name="header">
+                                <h:outputText value="Intitule du cours"/>
+                            </f:facet>
+                            <h:outputText value="#{item.course.nomCours}"/>
+                        </p:column>
+                         <p:column width="40">
+                            <f:facet name="header">
+                                <h:outputText value="Credit"/>
+                            </f:facet>
+                             <h:outputText value="#{item.course.codeCredit.credit}"/>
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Unite"/>
+                            </f:facet>
+                            <h:outputText value="#{item.course.codeUnite.nomUnite}"/>
+                        </p:column>
+                       
+                        <p:column width="200" colspan="3">
+                            <f:facet name="header">
+                                <h:outputText value="Professeur presenti"/>                                
+                            </f:facet>
+                            <h:outputText value="#{item.professor.codeGrade.code}.  "/>
+                            <h:outputText value="#{item.professor.nomProfesseur}  "/>                        
+                            <h:outputText value="#{item.professor.prenomProfesseur}"/>
+                        </p:column>
+                        <p:column width="">
+                            <f:facet name="header">
+                                <h:outputText value="Contrat"/>
+                            </f:facet>
+                            <h:outputText value="#{item.professor.contrat_id.contratType}"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:form>
+
+                <p:separator/>
+
+                
+            </p:panel><br/>
+
+        </div>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <head>
+        <ui:define name="metadata">
+            <f:view>
+                <f:metadata>
+                    <f:viewParam name="classe" value="#{note.idClasse_grille}" required="true"/>
+                    <f:viewAction action="#{note.generationGrille()}"/>
+                </f:metadata>
+            </f:view>
+        </ui:define>
+    </head>
+
+    <ui:define name="content">
+
+        <div align="center">
+            Generation automatique d'une Grille est cours de realisation. Merci
+            <h:form>
+                <table align="center" border="1" style="">
+                    <tr>
+                        <th>Semestre</th>
+                        <th colspan="#{note.taileUESemestre1}">Semestre 1</th>
+                        <th colspan="#{note.taileUESemestre2}">Semestre 2</th>
+                        <th >Synthese annuel</th>
+                    </tr>
+                    <tr> 
+                        <th>UE</th>
+
+                        <c:forEach items="#{note.listeUniteEnseignementDansUneClasseSemestre1}" var="u1" >
+                            <th colspan="2" style="text-height: 10; font-size: 10">#{u1.nomUnite} </th>                            
+                        </c:forEach> 
+
+                        <c:forEach items="#{note.listeUniteEnseignementDansUneClasseSemestre2}" var="u2">
+                            <th colspan="" style="text-height: 10; font-size: 10">#{u2.nomUnite}</th>                    
+                        </c:forEach> 
+                    </tr>
+                    <tr> 
+                        <th>Cours</th>
+                        <c:forEach items="#{note.listeCoursDansUniteSemestre1}" var="c1">                        
+                            <th colspan="" style="text-height: 10; font-size: 10">#{c1.nomCours}</th>                        
+                        </c:forEach> 
+                        <c:forEach items="#{note.listeCoursDansUniteSemestre2}" var="c2">
+                            <th colspan="" style="text-height: 10; font-size: 10">#{c2.nomCours}</th>                     
+                        </c:forEach> 
+                    </tr>
+
+                    <tr> 
+                        <th>N.P\Credit</th>
+                        <c:forEach items="#{note.listeCoursDansUniteSemestre1}" var="c1">                        
+                            <th colspan="">#{c1.codeCredit.credit}</th>                     
+                        </c:forEach> 
+                        <c:forEach items="#{note.listeCoursDansUniteSemestre2}" var="c2">
+                            <th colspan="" style="text-height: 10; font-size: 10">#{c2.codeCredit.credit}</th>                     
+                        </c:forEach> 
+                    </tr>
+
+
+                    <c:forEach items="#{note.listeInscriptionClasseAnneeSession}" var="i">
+                        <tr>
+                            <td>#{i.et.nomEtudiant}  #{i.et.prenomEtudiant}</td>
+                            <c:forEach items="#{note.listeCoursDansUniteSemestre1}" var="c">
+                                <c:forEach items="#{note.listeNoteInscriptionClasseAnneeSession}" var="n">
+                                    <c:if test="#{i.et.id eq n.insc.et.id and c.id eq n.attrib.course.id}" >
+                                        <td>#{n.note}</td>
+                                    </c:if>
+                                </c:forEach>
+                            </c:forEach>
+                        </tr>
+                    </c:forEach>                
+                </table>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Home/Home.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <div align="center">
+            <f:view>
+                <h:panelGrid columns="5">
+                    <h:outputLink value="Add.xhtml">
+                        <h:graphicImage width="20" height="20" value="../..//.//Image/ajouter.ICO"/>
+                        <h:outputText value="Nouveau " />
+                    </h:outputLink>
+                    <h:outputLabel value=" Recherche par classe" for="clas" />
+                    <h:selectOneMenu disabled="false" id="clas" value="#{cours.idClasse}" title="Classe" required="true" requiredMessage="The  field is required." >                             
+                        <f:selectItem itemLabel="select classe" itemValue="0" noSelectionOption="true"/>
+                        <f:selectItems value="#{classe.selectAllClasse}"
+                                       var="C"
+                                       itemValue="#{C.id}"
+                                       itemLabel="#{C.nomClasse}"/>   
+                    </h:selectOneMenu>
+                    <h:selectOneMenu id="semestreCode" value="#{cours.idSemestre}" >
+                            <!-- TODO: update below reference to list of available items-->
+                            <f:selectItems value="#{semestre.selectAllSemestre}" var="Semestre" itemValue="#{Semestre.id}" itemLabel="#{Semestre.id} - #{Semestre.semestre}"/>
+                        </h:selectOneMenu>
+                    <h:commandButton action="#{cours.rechercheCoursByClasse()}" value="Recherche" >
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                </h:panelGrid>
+                <p:separator/>
+                <h:form>
+                    <p:dataTable value="#{cours.selectAllCours}" style="width: 1200" var="item" scrollable="true" scrollHeight="200" >
+                        <p:column width="170" >
+                            <f:facet name="header">
+                                <h:outputText value="Code du cours"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codeCours}"/>
+                        </p:column>
+                        <p:column width="300">
+                            <f:facet name="header">
+                                <h:outputText value="Cours"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomCours}"/>
+                        </p:column>
+
+                        <p:column width="40" >
+                            <f:facet name="header">
+                                <h:outputText value="Credit"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codeCredit.credit}"/>
+                        </p:column>
+
+
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Unite"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codeUnite.nomUnite}"/>
+                        </p:column>
+                        <p:column width="150">
+                            <f:facet name="header">
+                                <h:outputText value="Classe"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codeUnite.classeCode.nomClasse}"/>
+                        </p:column>
+                        <p:column width="100">
+                            <f:facet name="header">
+                                <h:outputText value="Semestre"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codeUnite.semestreCode.semestre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Opération"/>
+                            </f:facet>
+                            <h:link  value="Modifier">
+                                <h:graphicImage width="15" height="15" value="../..//.//Image/update.ICO"/>
+                            </h:link>
+                            <p:outputLabel value="    "/>
+                            <h:commandLink  value="Supprimer">
+                                <h:graphicImage width="10" height="10" value="../..//.//Image/delete.png"/>
+                                <f:ajax execute="@form" render="@form"/>
+                            </h:commandLink>
+                        </p:column>
+                        <p:column style="width:24px">
+                            <p:commandLink title="View Detail" styleClass="ui-icon ui-icon-search">
+
+                            </p:commandLink>
+                        </p:column>
+                        <f:facet name="footer">
+                            Nous avons #{cours.tailleListCours} cours
+                        </f:facet>              
+                    </p:dataTable>
+                </h:form>
+            </f:view>
+        </div>
+    </ui:define>
+</ui:composition>

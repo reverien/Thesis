@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <head>
+        <ui:define name="metadata">
+            <f:view>
+                <f:metadata>
+                    <f:viewParam name="mat" value="#{etudiant.mat}" required="true"/>
+                    <f:viewAction action="#{etudiant.loadEtudiant()}"/>
+                </f:metadata>
+            </f:view>
+        </ui:define>
+    </head>
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+                <h:form>
+                    <h:panelGrid columns="3" style="">
+                        <h:outputLink value="View.xhtml">
+                            <h:outputText value="Affichage tous" />
+                        </h:outputLink>
+                    </h:panelGrid>
+                    <p:separator/>
+                    <h:panelGrid columns="3" style="">
+                        <p:outputLabel value="Nom" for="nomEtudiant" /><p:outputLabel value=":"/>
+                        <p:outputLabel id="nomEtudiant" value="#{etudiant.editEtudiant.nomEtudiant}" title="NomEtudiant" />
+                        <p:outputLabel value="Prenom" for="prenomEtudiant" /><p:outputLabel value=":"/>
+                        <p:outputLabel id="prenomEtudiant" value="#{etudiant.editEtudiant.prenomEtudiant}" title="PrenomEtudiant" />
+                        <p:outputLabel value="Matricule" for="matriculeEtudiant" /><p:outputLabel value=":"/>
+                        <p:outputLabel id="matriculeEtudiant" value="#{etudiant.editEtudiant.matriculeEtudiant}" title="MatriculeEtudiant" />
+                        <p:outputLabel value="Nationalite" for="nationalite" /><p:outputLabel value=":"/>
+                        <p:outputLabel id="nationalite" value="#{etudiant.editEtudiant.nationalite}" title="Nationalite" />
+
+                    </h:panelGrid>
+                </h:form>
+            </div>
+        </f:view>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <div align="center">
+            <f:view>
+                <h:form>
+                    <h1><p:outputLabel value="Inscription des etudiants" /></h1>
+                    <p:separator/>
+                    <h:panelGrid columns="6">                       
+
+                        <h:outputLabel value="Classe" for="clas" />
+                        <h:selectOneMenu disabled="false" id="clas" value="#{inscription.newInscription.cl.id}" title="Classe" required="true" requiredMessage="The  field is required." >                             
+                            <f:selectItem itemLabel="select classe" itemValue="0" noSelectionOption="true"/>
+                            <f:selectItems value="#{classe.selectAllClasse}"
+                                           var="C"
+                                           itemValue="#{C.id}"
+                                           itemLabel="#{C.nomClasse}"/>   
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="Type de session" for="ses" />
+                        <h:selectOneMenu disabled="false" id="ses" value="#{inscription.newInscription.typeInscr.id}" title="etu" required="true" requiredMessage="The  field is required." >                            
+                            <f:selectItem itemLabel="select inscription" itemValue="0" noSelectionOption="true"/>
+                            <f:selectItems value="#{typeInscription.selectAllTypeInscription}"
+                                           var="S"
+                                           itemValue="#{S.id}"
+                                           itemLabel="#{S.codetype}"/>   
+                        </h:selectOneMenu>
+
+                        <h:outputLabel value="Annee Academique"/>
+                        <h:selectOneMenu id="an" value="#{inscription.newInscription.prom.id}"  title="Annee acedemique" required="true" requiredMessage="The  field is required." >   
+                             <f:selectItem itemLabel="select A/A" itemValue="0" noSelectionOption="true"/>
+                             <f:selectItems value="#{promotion.selectAllPromotion}"
+                                           var="annee"
+                                           itemValue="#{annee.id}"
+                                           itemLabel="#{annee.promotion}"/>   
+                        </h:selectOneMenu>
+                        </h:panelGrid>
+
+                        <p:separator/>
+
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Etudiant" for="etu" />
+                            <h:selectOneMenu disabled="false" id="etu" value="#{inscription.newInscription.et.id}" title="etudiant" required="true" requiredMessage="The  field is required." >                                
+                                <f:selectItem itemLabel="select etudiant" itemValue="0" noSelectionOption="true"/>
+                                <f:selectItems value="#{etudiant.selectAllEtudiant}"
+                                               var="Etudiant"
+                                               itemValue="#{Etudiant.id}"
+                                               itemLabel="#{Etudiant.matriculeEtudiant}-#{Etudiant.nomEtudiant}  #{Etudiant.prenomEtudiant}"/>   
+                            </h:selectOneMenu>
+                        
+                        <h:outputLabel value=""  />
+                        <h:commandButton value="Inscrire" action="#{inscription.createInscription()}">
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandButton>
+                    </h:panelGrid>
+                </h:form>
+            </f:view>
+        </div>
+    </ui:define>
+
+</ui:composition>
+
+
+

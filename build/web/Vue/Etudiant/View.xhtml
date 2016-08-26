@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Home/Home.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+                <h:outputLabel value="test de session #{connection.login}"/>
+                <h:panelGrid columns="4" cellpadding="10">
+                    <h:outputLink value="Add.xhtml">
+                        <h:graphicImage width="20" height="20" value="../..//.//Image/ajouter.ICO"/>
+                        <h:outputText value="Ajouter Etudiant" />
+                    </h:outputLink>
+                    <h:outputLabel value="recherche par matricule"/>
+                    <h:selectOneMenu id="etu" value="#{etudiant.rechercheMatricule}" title="etudiant" required="true" requiredMessage="The  field is required." >   
+                        <f:selectItem itemLabel="selectionner etudiant" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{etudiant.etudiants}"
+                                       var="Etudiant"
+                                       itemValue="#{Etudiant.matriculeEtudiant}"
+                                       itemLabel="#{Etudiant.matriculeEtudiant}"/>   
+                    </h:selectOneMenu>
+                    <h:commandButton action="#{etudiant.showDetailsStudent(Etudiant.matriculeEtudiant)}" value="Recherche" >
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                </h:panelGrid>
+                <p:separator/>
+                <h:form >                   
+                    <p:dataTable  id="etudiants" style="width: 900;" value="#{etudiant.selectAllEtudiant}" var="item"  scrollable="true" scrollHeight="180">
+
+                        <p:column headerText="Matricule" sortBy="#{item.matriculeEtudiant}" width="100" >   
+                            <h:graphicImage width="20" height="20" value="../..//.//Image/etudiant.ICO"/>
+                            <h:link outcome="#{etudiant.showDetailsStudent(item.matriculeEtudiant)}" value="#{item.matriculeEtudiant}">
+
+                            </h:link>
+                        </p:column>
+
+                        <p:column width="120">
+                            <f:facet name="header">
+                                <h:outputText value="Nom"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomEtudiant}"/>
+                        </p:column>
+                        <p:column width="120">
+                            <f:facet name="header">
+                                <h:outputText value="Prenom"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prenomEtudiant}"/>
+                        </p:column> 
+
+                        <p:column width="80">
+                            <f:facet name="header">
+                                <h:outputText value="Nationalite"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nationalite}"/>
+                        </p:column> 
+
+                        <p:column width="80">
+                            <f:facet name="header">
+                                <h:outputText value="Inscription"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateInscription}">
+                                <f:convertDateTime pattern="dd-mm-yyyy"/>
+                            </h:outputText>                            
+                        </p:column> 
+dwefewfhif 648949+4fwefwe fwefwk
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Opération"/>
+                            </f:facet>   
+
+                            <h:link outcome="#{etudiant.updateEtudiant(item.matriculeEtudiant)}" value="Modifier">
+                                <h:graphicImage width="15" height="15" value="../..//.//Image/update.ICO"/>
+                            </h:link>
+                            <p:outputLabel value=" "/>
+
+                            <h:commandLink action="#{etudiant.deleteEtudiant(item.matriculeEtudiant)}" value="Supprimer" >
+                                <h:graphicImage width="10" height="10" value="../..//.//Image/delete.png"/>
+                                <f:ajax execute="@form" render="@form"/>
+                            </h:commandLink>
+                        </p:column>
+
+                        <p:column style="width:24px">
+                            <p:commandLink title="View Detail" styleClass="ui-icon ui-icon-search">
+                               
+                            </p:commandLink>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            In total there are #{etudiant.tailleList} students.
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </f:view>
+
+    </ui:define>
+
+</ui:composition>

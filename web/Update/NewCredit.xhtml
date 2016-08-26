@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="./Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="complementTitreEtH1">Credit</ui:define>
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+            <h:form>
+                <h:panelGrid>
+                    <h:outputLink value="test.xhtml">
+                        <h:outputLabel value="Afficher Commentaire " />
+                    </h:outputLink>
+                    <h:outputLink value="NewCredit.xhtml">
+                        <h:outputLabel value="Nouveau Commentaire" />
+                    </h:outputLink>                
+                </h:panelGrid>
+            </h:form>
+            
+
+
+            <h:form id="c">
+                <h1><h:outputText value="Create/Edit"/></h1>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Id:" for="id" />
+                    <h:inputText id="id" value="#{credit.newCredit.id}" title="Id" />
+                    <h:outputLabel value="Credit:" for="credit" />
+                    <h:inputText id="credit" value="#{credit.newCredit.credit}" title="Credit" />
+                    <h:outputLabel value="Description:" for="description" />
+                    <h:inputText id="description" value="#{credit.newCredit.description}" title="Description" />
+                    
+                    <p:outputLabel/>
+                    <h:commandButton value="Ajouter" action="#{credit.createCredit()}">
+                        <f:ajax execute="@form" render="c" />
+                    </h:commandButton>
+                </h:panelGrid>
+            </h:form>
+
+            </div>
+            
+            
+
+        </f:view>
+    </ui:define>
+
+</ui:composition>

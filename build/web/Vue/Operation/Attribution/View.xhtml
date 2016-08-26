@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+                <h:panelGrid columns="6">
+                    <h:outputLink value="Add.xhtml">
+                        <h:graphicImage width="20" height="20" value="../../..//.//Image/ajouter.ICO"/>
+                        <h:outputText value="Ajouter" />
+                    </h:outputLink>
+                   
+                    <h:outputLabel value=" Recherche par classe" for="clas" />
+                    <h:selectOneMenu disabled="false" id="clas" value="#{attribution.idClasse}" title="Classe" required="true" requiredMessage="The  field is required." >                             
+                        <f:selectItem itemLabel="select classe" itemValue="0" noSelectionOption="true"/>
+                        <f:selectItems value="#{classe.selectAllClasse}"
+                                       var="C"
+                                       itemValue="#{C.id}"
+                                       itemLabel="#{C.nomClasse}"/>   
+                    </h:selectOneMenu>
+                    <h:selectOneMenu id="semestreCode" value="#{attribution.idSemestre}" >
+                       <f:selectItem itemLabel="select semestre" itemValue="0" noSelectionOption="true"/>
+                       <f:selectItems value="#{semestre.selectAllSemestre}" var="Semestre" itemValue="#{Semestre.id}" itemLabel="#{Semestre.id} - #{Semestre.semestre}"/>
+                    </h:selectOneMenu>                    
+                    
+                    <h:selectOneMenu id="an" value="#{attribution.idAnnee}"  title="Annee acedemique" required="true" requiredMessage="The  field is required." >   
+                        <f:selectItem itemLabel="select A/A" itemValue="0" noSelectionOption="true"/>
+                        <f:selectItems value="#{promotion.selectAllPromotion}"
+                                       var="annee"
+                                       itemValue="#{annee.id}"
+                                       itemLabel="#{annee.promotion}"/>   
+                    </h:selectOneMenu>
+                    <h:commandButton action="#{attribution.rechercheParCoursPromotion()}" value="Recherche" >
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                </h:panelGrid>
+                <h:form>
+                    <p:dataTable value="#{attribution.selectAllAttribution}" var="item" scrollable="true" scrollWidth="1000" scrollHeight="260">
+                        <p:column width="200">
+                            <f:facet name="header">
+                                <h:outputText value="Code cours"/>
+                            </f:facet>
+                            <h:outputText value="#{item.course.codeCours}"/>
+                        </p:column>
+                        <p:column width="200">
+                            <f:facet name="header">
+                                <h:outputText value="Intitule du cours"/>
+                            </f:facet>
+                            <h:outputText value="#{item.course.nomCours}"/>
+                        </p:column>
+                        <p:column width="40">
+                            <f:facet name="header">
+                                <h:outputText value="Credit"/>
+                            </f:facet>
+                            <h:outputText value="#{item.course.codeCredit.credit}"/>
+                        </p:column>
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Unite"/>
+                            </f:facet>
+                            <h:outputText value="#{item.course.codeUnite.nomUnite}"/>
+                        </p:column>
+
+                        <p:column width="200" colspan="3">
+                            <f:facet name="header">
+                                <h:outputText value="Professeur presenti"/>                                
+                            </f:facet>
+                            <h:outputText value="#{item.professor.codeGrade.code}.  "/>
+                            <h:outputText value="#{item.professor.nomProfesseur}  "/>                        
+                            <h:outputText value="#{item.professor.prenomProfesseur}"/>
+                        </p:column>
+                        <p:column width="">
+                            <f:facet name="header">
+                                <h:outputText value="Contrat"/>
+                            </f:facet>
+                            <h:outputText value="#{item.professor.contrat_id.contratType}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </f:view>
+    </ui:define>
+
+</ui:composition>

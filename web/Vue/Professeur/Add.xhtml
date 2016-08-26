@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+                <h:form>
+                    <h1><h:outputText value="Create/Edit"/></h1>
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="NomProfesseur:" for="nomProfesseur" />
+                        <p:inputText id="nomProfesseur" value="#{professeur.newProfesseur.nomProfesseur}" title="NomProfesseur" />
+                        
+                        <p:outputLabel value="PrenomProfesseur:" for="prenomProfesseur" />
+                        <p:inputText id="prenomProfesseur" value="#{professeur.newProfesseur.prenomProfesseur}" title="PrenomProfesseur" />
+                         
+                        <p:outputLabel value="Matricule:" for="matricule" />
+                        <p:inputText id="matricule" value="#{professeur.newProfesseur.matricule}" title="Matricule" />
+                        
+                        <p:outputLabel value="Phone:" for="phone" />
+                        <p:inputText id="phone" value="#{professeur.newProfesseur.phone}" title="Phone" />
+                        
+                        <p:outputLabel value="Grade" for="codeGrade" />
+                        <h:selectOneMenu id="codeGrade" value="#{professeur.newProfesseur.codeGrade.id}" >
+                            <f:selectItem itemLabel="select grade" itemValue="0" noSelectionOption="true"/>
+                            <f:selectItems value="#{grade.selectAllGrade}" var="g" itemValue="#{g.id}" itemLabel="#{g.grade}"/>
+                        </h:selectOneMenu>
+                        
+                        <p:outputLabel value="Type contrat" for="contrat_id" />
+                        <h:selectOneMenu id="contrat_id" value="#{professeur.newProfesseur.contrat_id.id}" >
+                            <f:selectItem itemLabel="select contrat" itemValue="0" noSelectionOption="true"/>
+                            <f:selectItems value="#{contrat.selectAllContrat}" var="c" itemValue="#{c.id}" itemLabel="#{c.contratType}"/>
+                        </h:selectOneMenu>
+                        
+                        <h:commandButton  value="suivant" action="#{professeur.createListeTemporelleProfesseur()}">
+                            <f:ajax execute="@form" render=""/>
+                        </h:commandButton>
+                        <h:commandButton value="Enregistrer" action="#{professeur.createProfesseur()}">
+                            <f:ajax execute="@form" render=""/>
+                        </h:commandButton>
+                    </h:panelGrid>
+                </h:form>
+                <p:separator/>
+
+
+                <h:form>
+                    <h1><h:outputText value="List"/></h1>
+                    <p:dataTable id="umwigisha" value="#{professeur.listeTemporelle}" var="item" style="width: 1100">
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="NomProfesseur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomProfesseur}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="PrenomProfesseur"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prenomProfesseur}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="CodeGrade"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codeGrade.grade}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Matricule"/>
+                            </f:facet>
+                            <h:outputText value="#{item.matricule}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Phone"/>
+                            </f:facet>
+                            <h:outputText value="#{item.phone}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Contrat_id"/>
+                            </f:facet>
+                            <h:outputText value="#{item.contrat_id.contratType}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+            </div>
+        </f:view>
+    </ui:define>
+
+</ui:composition>

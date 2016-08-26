@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Identification</title>
+    </h:head>
+    <h:body>
+        <f:view>
+                       
+            <h:form>
+                <h:panelGrid border="0" style="margin-top: 150px;margin-left: 350px;">
+                    <h:panelGrid columns="1">
+                    </h:panelGrid>
+                    <h:panelGrid border="0" columns="3" style="">
+                        <p:outputLabel value="Identifiant"/><p:outputLabel value=":"/>
+                        <p:inputText value="#{connection.newConnection.login}"/>
+                        <p:outputLabel value="Mot de passe"/><p:outputLabel value=":"/>
+                        <p:inputText value="#{connection.newConnection.password}"/>
+                        <p:outputLabel/><p:outputLabel value=""/>
+                        <p:commandButton onclick="continue" value="Connection" action="#{connection.connection()}"></p:commandButton>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </h:form>
+            <table align="center" border="1">
+                <th>key</th>
+                <th>value</th>
+                <c:forEach items="#{header}" var="h">
+                    <tr>
+                        <td>#{h.key}</td>
+                        <td>#{h.value}</td>
+                    </tr>
+                </c:forEach>                
+            </table>
+        </f:view>
+    </h:body>
+</html>
+

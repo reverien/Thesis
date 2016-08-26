@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="./Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="complementTitreEtH1">Commentaire</ui:define>
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+            <h:form>
+                <h:panelGrid>
+                    <h:outputLink value="View_comment.xhtml">
+                        <h:outputLabel value="Afficher Commentaire " />
+                    </h:outputLink>
+                    <h:outputLink value="NewComment.xhtml">
+                        <h:outputLabel value="Nouveau Commentaire" />
+                    </h:outputLink>                
+                </h:panelGrid>
+            </h:form>
+            <h:form id="resultat">
+                <h:panelGrid border="0" columns="2" cellpadding="5">
+                    <p:outputLabel value="Donnez votre nom complet *"/>
+                    <p:inputText value="#{commentaireControleur.newCom.nom}" required="true"/>
+                    <p:outputLabel value="Votre commentaire *"/>
+                    <p:inputTextarea value="#{commentaireControleur.newCom.commentaire}" required="true"/>
+
+                    <p:outputLabel/>
+                    <h:commandButton value="Envoyer" action="#{commentaireControleur.createCommentaire()}">
+                        <f:ajax execute="@form" render="resultat" />
+                    </h:commandButton>
+
+                </h:panelGrid>
+            </h:form>
+</div>
+        </f:view>
+    </ui:define>
+
+</ui:composition>

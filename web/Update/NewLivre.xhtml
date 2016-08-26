@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="./Home/Home.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="complementTitreEtH1">Nouveau Livre</ui:define>
+
+    <ui:define name="content">
+        <f:view>
+            <div align="center">
+                <f:view>
+                    <h:form>
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="Id:" for="id" />
+                            <h:inputText id="id" value="#{livre.newLivre.id}" title="Id" />
+                            <h:outputLabel value="Titre:" for="titre" />
+                            <h:inputText id="titre" value="#{livre.newLivre.titre}" title="Titre" />
+                            <h:outputLabel value="NbPages:" for="nbPages" />
+                            <h:inputText id="nbPages" value="#{livre.newLivre.nbPages}" title="NbPages" />
+                            <h:outputLabel value="Auteur:" for="auteur" />
+                            <h:selectOneMenu id="auteur" value="#{livre.newLivre.auteur}"  title="Auteur" >
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{livre.livres}"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                    </h:form>
+                </f:view>
+
+            </div>
+        </f:view>
+    </ui:define>
+
+</ui:composition>
+

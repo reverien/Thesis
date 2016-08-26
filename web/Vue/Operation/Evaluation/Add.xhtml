@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../Home/Home.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <head>
+        <ui:define name="metadata">
+            <f:view>
+                <f:metadata>
+                    <f:viewParam name="attributionId" value="#{note.postAttribution}" required="true"/>
+                    <f:viewParam name="session" value="#{note.postSession}" required="true"/>
+                    <f:viewAction action="#{note.loadAttribution()}"/>
+                </f:metadata>
+            </f:view>
+        </ui:define>
+    </head>
+
+    <ui:define name="content">
+        <div align="center">
+            <f:view>
+
+                <h:form>
+                    <h1><p:outputLabel value="Creation des fiches des points" /></h1>
+                    <p:panel>
+                        <h:panelGrid columns="10" style="">
+
+                            <h:outputLabel value="Classe"  />
+                            <p:outputLabel value="#{note.classe}"  style="text-decoration-color: blue; " />
+
+                            <h:outputLabel value="Cours"  />
+                            <p:inputText value="#{note.cours}" disabled="true" />
+
+                            <h:outputLabel value="Professeur"  />
+                            <p:inputText value="#{note.professeur}" disabled="true"/>
+
+                            <h:outputLabel value="A/A"/>
+                            <p:inputText value="#{note.annee}" disabled="true"/>
+
+                            <h:outputLabel value="Session"/>
+                            <p:inputText value="#{note.postSession}" disabled="true"/>
+
+
+                        </h:panelGrid>
+                    </p:panel>
+
+                    <p:separator/>
+
+                    <h:panelGrid columns="2" style="">
+
+                        <p:outputLabel value="Etudiant" for="etu" />
+                        <h:selectOneMenu id="etu" value="#{note.newNote.insc.id}" title="etudiant" requiredMessage="The  field is required." >   
+                            <f:selectItem itemLabel="select etudiant" itemValue="0" noSelectionOption="true"/>
+                            <f:selectItems value="#{note.selectEtudiantInscrit}"
+                                           var="Etudiant"
+                                           itemValue="#{Etudiant.id}"
+                                           itemLabel="#{Etudiant.et.matriculeEtudiant}-#{Etudiant.et.nomEtudiant}  #{Etudiant.et.prenomEtudiant}"/>   
+                        </h:selectOneMenu>
+
+                        <p:outputLabel value="Note Obtenue" for="n" />
+                        <p:inputText value="#{note.newNote.note}" id="n"/>
+
+
+                        <h:commandButton value="Suivant" action="#{note.createListeTemporelleNote()}">
+                            <f:ajax execute="@form" render="@form"/>
+                        </h:commandButton> 
+                       <h:commandButton value="Enregistrer" action="#{note.createNote()}"/>
+                     
+                    </h:panelGrid>
+                </h:form>
+                
+                <p:separator/>
+
+
+                <h:form>
+                    <h1><h:outputText value="List"/></h1>
+                    <p:dataTable value="#{note.listeTemporelleNote}" var="item" scrollable="true" scrollHeight="220">
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Matricule "/>
+                            </f:facet>
+                            <h:outputText value="#{item.insc.et.matriculeEtudiant}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nom "/>
+                            </f:facet>
+                            <h:outputText value="#{item.insc.et.nomEtudiant}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prenom "/>
+                            </f:facet>
+                            <h:outputText value="#{item.insc.et.prenomEtudiant}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Note obtenu /20"/>
+                            </f:facet>
+                            <h:outputText value="#{item.note}"/>
+                        </p:column>
+
+
+                    </p:dataTable>
+                </h:form>
+
+
+
+
+
+            </f:view>
+        </div>
+    </ui:define>
+
+
+</ui:composition>
